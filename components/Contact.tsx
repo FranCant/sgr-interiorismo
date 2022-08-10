@@ -1,9 +1,7 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import emailjs from "emailjs-com";
-//import email from '../helpers/emailjs'
-
+import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 import { HiChevronRight } from "react-icons/hi";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -18,15 +16,15 @@ import {
 } from "react-icons/ai";
 
 interface IFormInput {
-    _id?: string;
-    name?: string;
-    username?: string
-    email?: string;
-    message?: string;
-    type: string
-  }
+  username?: string;
+  email?: string;
+  message?: string;
+}
+
+
 const Contact = () => {
-  const formRef = useRef();
+  const formRef = useRef() as React.MutableRefObject<HTMLFormElement>;
+
   const {
     register,
     handleSubmit,
@@ -35,42 +33,39 @@ const Contact = () => {
   } = useForm<IFormInput>();
 
   const [userInfo, setUserInfo] = useState();
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     return new Promise((resolve) => {
-      setUserInfo(data); //Inputs values
       handleSubmit(onSubmit); // Submit
       const notification = toast.loading("Sending email...");
-      email(data);
-      setTimeout(() => {
-        resolve();
-        toast.success("E-mail Sent succesfully", {
-          id: notification,
-        });
-        // setIsOpen(true);
-        reset();
-
-        console.log(data);
-      }, 2000);
+      //email js
+      emailjs
+        .sendForm(
+          "service_l8s6c54",
+          "template_bk3viwm",
+          formRef.current,
+          "UedMk5hsN7oelieoT"
+        )
+        .then(
+          (result) => {
+            setTimeout(() => {
+              resolve(data);
+              toast.success("E-mail Sent succesfully");
+              reset();
+      
+              //console.log(data);
+            }, 2000);
+            //console.log(result);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+      //resolve
+      
     });
   };
-  //Email js
-  const email = (data) => {
-    emailjs
-      .sendForm(
-        "service_9mbjzff",
-        "template_n02o44b",
-        formRef.current,
-        "8RgtZSpU2pO_FbSGH"
-      )
-      .then(
-        (result) => {
-          console.log(result);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-  };
+
   return (
     <div className="layout min-h-full py-20 flex items-center">
       <div
@@ -110,16 +105,16 @@ const Contact = () => {
 
               <hr className="border border-white/70 w-full" />
               <div className="flex items-center space-x-4 text-white">
-                <a href="https://www.instagram.com/sgr.dsign/">
+                <a href="https://www.instagram.com/sgr.dsign/" className="hover:text-gray-200">
                   <AiOutlineInstagram className="h-6 w-6" />
                 </a>
-                <a href="https://ar.pinterest.com/sgrdsign/_saved/">
+                <a href="https://ar.pinterest.com/sgrdsign/_saved/" className="hover:text-gray-200">
                   <BsPinterest className="h-6 w-6" />
                 </a>
-                <a href="https://es.linkedin.com/in/susana-g%C3%B3mez-ramos-b306796">
+                <a href="https://es.linkedin.com/in/susana-g%C3%B3mez-ramos-b306796" className="hover:text-gray-200">
                   <AiFillLinkedin className="h-6 w-6" />
                 </a>
-                <a href="https://api.whatsapp.com/send?phone=34609702975">
+                <a href="https://api.whatsapp.com/send?phone=34609702975" className="hover:text-gray-200">
                   <AiOutlineWhatsApp className="h-6 w-6" />
                 </a>
               </div>
@@ -143,7 +138,7 @@ const Contact = () => {
               <div className="relative z-0 mb-6 w-full group">
                 <input
                   type="text"
-                //   name="username"
+                  //  name="username"
                   className="block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 appearance-none border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 peer"
                   placeholder=" "
                   {...register("username", {
@@ -179,7 +174,7 @@ const Contact = () => {
               <div className="relative z-0 mb-6 w-full group">
                 <input
                   type="email"
-                //   name="email"
+                  //   name="email"
                   className="block py-2.5 px-0 w-full text-sm text-gray-600 bg-transparent border-0 border-b-2 border-gray-600 appearance-none dark:border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 peer"
                   placeholder=" "
                   {...register("email", {
@@ -202,7 +197,7 @@ const Contact = () => {
               </div>
               <div className="relative z-0 mb-6 w-full group">
                 <textarea
-                //   name="message"
+                  //   name="message"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 peer"
                   placeholder=" "
                   {...register("message", {
@@ -233,7 +228,7 @@ const Contact = () => {
                     {isSubmitting ? (
                       <svg
                         role="status"
-                        className="inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                        className="inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-white"
                         viewBox="0 0 100 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

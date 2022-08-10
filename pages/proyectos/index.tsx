@@ -9,7 +9,7 @@ interface Props {
 }
 
 function index({ categories }: Props) {
-  console.log(categories);
+
   return (
     <div className="w-full min-h-screen flex items-center ">
       <Meta title="Proyectos" />

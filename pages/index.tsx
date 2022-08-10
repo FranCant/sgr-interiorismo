@@ -7,6 +7,7 @@ import CategoryList from "../components/CategoryList";
 import Section from "../components/Section";
 import { sanityClient } from "../lib/client";
 import { Category } from "../typing";
+import Contact from "../components/Contact";
 
 interface Props {
   categories: Category[];
@@ -20,7 +21,7 @@ export default function Home({ categories }: Props) {
       <Marcas />
       <CategoryList categories={categories} />
       <div className="bg-gradient-to-br from-fill via-fill/90 to-fill/70">
-        {/* <Contact /> */}
+        <Contact />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ interface Props {
   category: Category
 }
 function CategoryCard({ category }: Props) {
-  console.log(category);
+
   return (
     <>
       <div
