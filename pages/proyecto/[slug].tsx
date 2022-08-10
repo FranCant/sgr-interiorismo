@@ -4,10 +4,10 @@ import { BsArrowLeft } from "react-icons/bs";
 import Link from "next/link";
 import Meta from "../../components/Meta";
 import { GetStaticProps } from "next";
-import { Category } from "../../typing";
+import { Category, Projects } from "../../typing";
 
-interface Props{
-    projects: any
+interface Props {
+  projects: Projects;
 }
 function Project({ projects }: Props) {
   return (
@@ -69,20 +69,20 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const query = `*[_type == "projects" && slug.current == $slug][0]`;
-  
-    const projects = await sanityClient.fetch(query, {
-        slug: params?.slug,
-    });
-  
-    if (!projects) {
-        return {
-          notFound: true,
-        };
-      }
+  const query = `*[_type == "projects" && slug.current == $slug][0]`;
 
+  const projects = await sanityClient.fetch(query, {
+    slug: params?.slug,
+  });
+
+  if (!projects) {
     return {
-      props: { projects },
-      revalidate: 60,
+      notFound: true,
     };
+  }
+
+  return {
+    props: { projects },
+    revalidate: 60,
   };
+};

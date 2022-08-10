@@ -1,15 +1,5 @@
 import Head from "next/head";
-
-interface HeadData {
-  title?: string;
-  keywords?: string;
-  description?: string;
-  defaultProps?: {
-    title: string;
-    keywords: string;
-    description: string;
-  };
-}
+import { HeadData } from "../typing";
 
 const Meta = ({ title, description, keywords }: HeadData) => {
   return (
