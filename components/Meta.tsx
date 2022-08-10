@@ -11,7 +11,7 @@ interface HeadData {
   };
 }
 
-const Meta = ({ title, description, keywords, defaultProps }: HeadData) => {
+const Meta = ({ title, description, keywords }: HeadData) => {
   return (
     <Head>
       <meta name="viewport" content="width=device-width initial-scale=1" />

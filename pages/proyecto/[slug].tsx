@@ -4,12 +4,12 @@ import { BsArrowLeft } from "react-icons/bs";
 import Link from "next/link";
 import Meta from "../../components/Meta";
 import { GetStaticProps } from "next";
-import { Category, projects } from "../../typing";
+import { Category } from "../../typing";
 
 interface Props{
-    projects: projects
+    projects: any
 }
-function Project({ projects }: any) {
+function Project({ projects }: Props) {
   return (
     <div className="w-full flex items-center flex-col pt-14 ">
       <Meta title={projects.title} />
