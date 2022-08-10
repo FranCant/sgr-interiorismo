@@ -50,7 +50,9 @@ const Contact = () => {
           (result) => {
             setTimeout(() => {
               resolve(data);
-              toast.success("E-mail Sent succesfully");
+              toast.success("E-mail Sent succesfully", {
+                id: notification,
+              });
               reset();
       
               //console.log(data);

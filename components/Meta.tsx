@@ -18,7 +18,7 @@ const Meta = ({ title, description, keywords }: HeadData) => {
       <meta name="keywords" content={keywords} />
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="icon" href="/fav.ico" />
+      <link rel="icon" href="/images/fav.ico" />
     </Head>
   );
 };
